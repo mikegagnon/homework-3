@@ -1,3 +1,3 @@
-# Homework 3
+# Lights Out
 
-TODO
+Lights Out is a puzzle game in which there is a 4x4 matrix of buttons that can be turned on or off by clicking on them. A pink button is "on" while a grey button is "off". The goal of the game is to turn all of the buttons off. However, toggling one button will toggle all of its neighbors. For example, a button in position \[2,2\] will toggle the buttons in positions \[1,2\], \[3,2\], \[2,1\], and \[2,3\]. When a button is on the edge of the board, the neighbors "wrap around" the board to the other side. For example, clicking a button on a 4x4 matrix in position \[0,1\] will toggle the button in position \[3,1\].
