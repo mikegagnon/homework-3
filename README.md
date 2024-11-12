@@ -1,3 +1,3 @@
-# Homework 3
+# Lights Out (JS)
 
-TODO
+*Description of project will go here*
