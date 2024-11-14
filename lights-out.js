@@ -4,6 +4,7 @@ class LightsOut {
         this.numRows = 4;
         this.numCols = 4;
         this.randomize();
+        this.registerClicks();
     }
 
     randomize() {
@@ -13,6 +14,53 @@ class LightsOut {
                     document.querySelector(`#${this.gameId} [data-row="${row}"][data-col="${col}"]`)
                     .classList.toggle("on");
                 }
+            }
+        }
+    }
+
+    getNeighbors(row, col) {
+        const neighborArray = [];
+        
+        if (row < this.numRows - 1) {
+            neighborArray.push([row + 1, col]);
+            if (row > 0) {
+                neighborArray.push([row - 1, col]);
+            } else {
+                neighborArray.push([this.numRows - 1, col]);
+            }
+        } else {
+            neighborArray.push([0, col]);
+            neighborArray.push([row - 1, col]);
+        }
+        if (col < this.numCols - 1) {
+            neighborArray.push([row, col + 1]);
+            if (col > 0) {
+                neighborArray.push([row, col - 1]);
+            } else {
+                neighborArray.push([row, this.numCols - 1]);     
+            }
+        } else {
+            neighborArray.push([row, 0]);
+            neighborArray.push([row, col - 1]);
+        }
+
+        return neighborArray;
+    }
+
+    registerClicks() {
+        for(let row = 0; row < this.numRows; row++) {
+            for(let col = 0; col < this.numCols; col++) {
+                const button = document.querySelector(`#${this.gameId} [data-row="${row}"][data-col="${col}"]`);
+                button.addEventListener('click', () => {
+                    button.classList.toggle("on");
+                    const neighbors = this.getNeighbors(row, col);
+                    
+                    for (const neighbor of neighbors) {
+                        const [r, c] = neighbor;
+                        document.querySelector(`#${this.gameId} [data-row="${r}"][data-col="${c}"]`)
+                            .classList.toggle("on")
+                    }
+                });
             }
         }
     }
