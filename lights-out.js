@@ -8,9 +8,9 @@ class LightsOut {
     }
 
     randomize() {
-        for(let row = 0; row < this.numRows; row++) {
-            for(let col = 0; col < this.numCols; col++) {
-                if(Math.random() < 0.5) {
+        for (let row = 0; row < this.numRows; row++) {
+            for (let col = 0; col < this.numCols; col++) {
+                if (Math.random() < 0.5) {
                     document.querySelector(`#${this.gameId} [data-row="${row}"][data-col="${col}"]`)
                     .classList.toggle("on");
                 }
@@ -20,7 +20,6 @@ class LightsOut {
 
     getNeighbors(row, col) {
         const neighborArray = [];
-        
         if (row < this.numRows - 1) {
             neighborArray.push([row + 1, col]);
             if (row > 0) {
@@ -43,18 +42,16 @@ class LightsOut {
             neighborArray.push([row, 0]);
             neighborArray.push([row, col - 1]);
         }
-
         return neighborArray;
     }
 
     registerClicks() {
-        for(let row = 0; row < this.numRows; row++) {
-            for(let col = 0; col < this.numCols; col++) {
+        for (let row = 0; row < this.numRows; row++) {
+            for (let col = 0; col < this.numCols; col++) {
                 const button = document.querySelector(`#${this.gameId} [data-row="${row}"][data-col="${col}"]`);
                 button.addEventListener('click', () => {
                     button.classList.toggle("on");
                     const neighbors = this.getNeighbors(row, col);
-                    
                     for (const neighbor of neighbors) {
                         const [r, c] = neighbor;
                         document.querySelector(`#${this.gameId} [data-row="${r}"][data-col="${c}"]`)
