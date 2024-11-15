@@ -56,11 +56,7 @@ class LightsOut {
                         document.querySelector(`#${this.gameId} [data-row="${r}"][data-col="${c}"]`)
                             .classList.toggle("on");
                     }
-                    if (!button.textContent) {
-                        this.solve();
-                    } else {
-                        button.textContent = null;
-                    }
+                    this.solve();
                 });
             }
         }
@@ -75,14 +71,9 @@ class LightsOut {
         for (let row = 0; row < this.numRows; row++) {
             for (let col = 0; col < this.numCols; col++) {
                 const button = document.querySelector(`#${this.gameId} [data-row="${row}"][data-col="${col}"]`);
-                const neighbors = this.getNeighbors(row, col);
                 if (button.classList.contains("on")) { 
-                    if (button.textContent) {
-                        button.textContent = null;
-                    } else {
-                        button.textContent = "Click me!";
-                    }
                     const neighbors = this.getNeighbors(row, col);
+                    neighbors.push([row, col]);
                     for (const neighbor of neighbors) {
                         const [r, c] = neighbor;
                         if (document.querySelector(`#${this.gameId} [data-row="${r}"][data-col="${c}"]`).textContent) {
