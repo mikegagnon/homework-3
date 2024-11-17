@@ -1,11 +1,28 @@
 class LightsOut {
-    constructor(gameId) {
+    constructor(gameId, numRows, numCols) {
         this.gameId = gameId;
-        this.numRows = 4;
-        this.numCols = 4;
+        this.numRows = numRows;
+        this.numCols = numCols;
+        this.doSolve = (this.numRows === 4 && this.numCols === 4);
+        this.appendHtml();
         this.randomize();
         this.registerClicks();
         this.solve();
+    }
+
+    appendHtml() {
+        for (let row = 0; row < this.numRows; row++) {
+            let currentRow = document.createElement("div");
+            currentRow.classList.add("row");
+            for (let col = 0; col < this.numCols; col++) {
+                let currentButton = document.createElement("div");
+                currentButton.classList.add("button");
+                currentButton.setAttribute("data-row", row);
+                currentButton.setAttribute("data-col", col);
+                currentRow.appendChild(currentButton);
+            }
+            document.getElementById(this.gameId).appendChild(currentRow);
+        }        
     }
 
     randomize() {
@@ -63,6 +80,9 @@ class LightsOut {
     }
 
     solve() {
+        if (!this.doSolve) {
+            return;
+        }
         for (let row = 0; row < this.numRows; row++) {
             for (let col = 0; col < this.numCols; col++) {
                 document.querySelector(`#${this.gameId} [data-row="${row}"][data-col="${col}"]`).textContent = null;
